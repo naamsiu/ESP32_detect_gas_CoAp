@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fire Prevention Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header>
+            <h1>🔥 Hệ Thống Cảnh Báo Cháy Mini</h1>
+            <div class="status-indicator online">System Online</div>
+        </header>
+        
+        <div class="cards-grid">
+            <div class="card sensor">
+                <h3>Khí Gas (MQ2)</h3>
+                <h2 id="gasValue">0</h2>
+                <p>Ngưỡng cảnh báo: 600</p>
+            </div>
+            <div class="card fsm">
+                <h3>Trạng thái FSM</h3>
+                <h2 id="fsmState">SAFE</h2>
+            </div>
+            <div class="card mode">
+                <h3>Chế độ Hiện Tại</h3>
+                <h2 id="modeValue">AUTO</h2>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="chart-section">
+                <canvas id="gasChart"></canvas>
+            </div>
+
+            <div class="control-panel">
+                <h3>Điều Khiển Hệ Thống</h3>
+                
+                <div class="control-group">
+                    <button class="btn btn-auto" onclick="sendCommand('AUTO')">Bật AUTO</button>
+                    <button class="btn btn-manual" onclick="sendCommand('MANUAL')">Bật MANUAL</button>
+                </div>
+
+                <div class="control-group">
+                    <label>Tốc độ Quạt cài đặt: <span id="fanSpeedVal">150</span></label>
+                    <input type="range" id="fanSpeed" min="0" max="255" value="150" 
+                           oninput="document.getElementById('fanSpeedVal').innerText = this.value"
+                           onchange="changeTargetSpeed(this.value)">
+                    
+                    <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+                        <button class="btn btn-primary" onclick="toggleFanPower(1)">Bật Quạt</button>
+                        <button class="btn btn-secondary" onclick="toggleFanPower(0)">Tắt Quạt</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <button class="btn btn-alarm-on" onclick="sendCommand('BUZ:1')">Bật Còi</button>
+                    <button class="btn btn-alarm-off" onclick="sendCommand('BUZ:0')">Tắt Còi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>

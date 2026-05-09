@@ -1,0 +1,18 @@
+{
+  "name": "smart-fire-server",
+  "version": "2.0.0",
+  "description": "CoAP Bridge Server for Smart Fire Prevention System (ESP32 + Web Dashboard)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": ["coap", "esp32", "iot", "fire-prevention"],
+  "author": "ESP32 Fire System Team",
+  "license": "MIT",
+  "dependencies": {
+    "coap": "^1.5.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}
